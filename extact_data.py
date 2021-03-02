@@ -1,3 +1,4 @@
+# Refer to this video https://www.youtube.com/watch?v=hrm5RmsVXo0
 
 from netCDF4 import Dataset
 import numpy as np
