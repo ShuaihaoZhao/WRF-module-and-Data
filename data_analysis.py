@@ -2,6 +2,7 @@
 #Compare the foracasted data with the real weather data
 
 import pandas as pd
+import matplotlib.pyplot as plt
 
 #make sure choosing the right alias
 real_data=pd.read_csv(r'E:\U_of_A\ECE910\WRF_Data\WRF-module-and-Data\real_data\20200101.csv',
@@ -12,13 +13,13 @@ forecasted_data=pd.read_csv(r'E:\U_of_A\ECE910\WRF_Data\WRF-module-and-Data\fore
 
 print(forecasted_data.columns)#header names
 
+#time=forecasted_data[['Unnamed: 0']]
 part_real=real_data[['Temp (¡ãC)','Stn Press (kPa)','Wind Spd (km/h)']][0:742]# partial real data
 
 part_forecasted=forecasted_data[['Temperature[Degree Celsius]','Surface Pressure [Pa]',
                                  '10m_X_Wind_Speed [m/s]','10m_Y_Wind_Speed [m/s]']];
-
                                  
-#print(part_real.iterrows())
+
 counter=0
 error=0
 for index,rows in part_real.iterrows():
@@ -26,3 +27,15 @@ for index,rows in part_real.iterrows():
     counter+=1
     
 print('Temperature mean percentage error: ',"%.4f" % round(error/counter, 4))
+#######################################################################plot
+plt.figure(figsize=(20,10))
+plt.plot(forecasted_data.iloc[:,0],part_forecasted.iloc[:,0],label='forecasted')
+plt.plot(forecasted_data.iloc[:,0],part_real.iloc[:,0],label='real');
+
+plt.title('Real Temperature vs Forecasted Temperature')
+plt.xlabel('Time')
+plt.ylabel('Temperature')
+plt.legend(loc="upper left")
+plt.show()
+#######################################################################
+
