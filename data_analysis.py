@@ -28,7 +28,7 @@ part_forecasted=forecasted_data[['Temperature[Degree Celsius]','Surface Pressure
 #
 #plt.title('Real Temperature vs Forecasted Temperature')
 #plt.xlabel('Time')
-#plt.ylabel('Temperature (Kelvin)')
+#plt.ylabel('Temperature (Â°C)')
 #plt.legend(loc="upper left")
 #plt.show()
 #
@@ -45,7 +45,7 @@ part_forecasted=forecasted_data[['Temperature[Degree Celsius]','Surface Pressure
 #
 ########################################################################Wind
 ##
-part_forecasted['Wind[km/h]']=((np.sqrt(part_forecasted['10m_X_Wind_Speed [m/s]']**2+part_forecasted['10m_Y_Wind_Speed [m/s]']**2)/1000.0)*3600)
+part_forecasted['Wind[km/h]']=((np.sqrt(part_forecasted['10m_X_Wind_Speed [m/s]']**2+part_forecasted['10m_Y_Wind_Speed [m/s]']**2)/1000.0)*3600.0)
 ###
 #plt.figure(figsize=(20,10))
 #plt.plot(forecasted_data.iloc[:,0],part_forecasted.iloc[:,4],label='forecasted')
@@ -66,15 +66,15 @@ for index_f,rows in forecasted_data.iterrows():
     else:
         part_forecasted.iloc[index_f,5]=forecasted_data.iloc[index_f,5]+forecasted_data.iloc[index_f,6]
         
-plt.figure(figsize=(20,10))
-plt.plot(forecasted_data.iloc[:,0],part_forecasted.iloc[:,5],label='forecasted')
-plt.plot(forecasted_data.iloc[:,0],part_real.iloc[:,3],label='real');
-
-plt.title('Real Precipitation vs Forecasted Precipitation')
-plt.xlabel('Time')
-plt.ylabel('precipitation[mm]')
-plt.legend(loc="upper left")
-plt.show()                                
+#plt.figure(figsize=(20,10))
+#plt.plot(forecasted_data.iloc[:,0],part_forecasted.iloc[:,5],label='forecasted')
+#plt.plot(forecasted_data.iloc[:,0],part_real.iloc[:,3],label='real');
+#
+#plt.title('Real Precipitation vs Forecasted Precipitation')
+#plt.xlabel('Time')
+#plt.ylabel('precipitation[mm]')
+#plt.legend(loc="upper left")
+#plt.show()                                
                                  
 ########################################################################
 #counter=0
@@ -92,9 +92,33 @@ plt.show()
 #print('Temperature mean percentage error: ',"%.4f" % round(error/counter, 4))
 #print('Pressure mean percentage error: ',"%.4f" % round(error_1/counter, 4))
 #print('Wind speed mean percentage error: ',"%.4f" % round(error_2/counter, 4))
-##print('precipitation mean percentage error: ',"%.4f" % round(error_3/counter, 4))
+#print('precipitation mean percentage error: ',"%.4f" % round(error_3/counter, 4))
 
-#######################################################################
+####################################################################### corrlation
+
+corr_temperature=part_forecasted['Temperature[Degree Celsius]'].corr(part_real['Temp (Â°C)'])
+corr_pressure=(part_forecasted['Surface Pressure [Pa]']*1000).corr(part_real['Stn Press (kPa)'])
+corr_wind=part_forecasted['Wind[km/h]'].corr(part_real['Wind Spd (km/h)'])
+corr_precipitation=part_forecasted['precipitation[mm]'].corr(part_real['Precip. Amount (mm)'])
+
+print('Temperature Correlation is: ',corr_temperature)
+print('Pressure Correlation is: ',corr_pressure)
+print('Wind speed Correlation is: ',corr_wind)
+print('Precipitation Correlation is: ',corr_precipitation)
+
+#plt.figure(figsize=(12,12))
+#part_real_corr_matrix=part_real.corr()
+#
+#plt.matshow(part_real_corr_matrix,fignum=1)
+#name=['Temp (Â°C)','Stn Press (kPa)','Wind Spd (km/h)','Precip. Amount (mm)']
+#
+#name_pos=np.arange(len(name))
+#
+#plt.xticks(name_pos,name)
+#plt.yticks(name_pos,name)
+#plt.colorbar()
+
+
 
 
 
