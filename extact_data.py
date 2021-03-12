@@ -5,10 +5,10 @@ import numpy as np
 from datetime import datetime
 from datetime import timedelta
 import pandas as pd
-import math
+
 
 data=Dataset(r'E:\U_of_A\ECE910\WRF_output\wrfout_one_month','r')
-#print(data.variables.keys())#types of variables
+print(data.variables.keys())#types of variables
 
 lat=data.variables['XLAT'][0,:,0]
 lon=data.variables['XLONG'][0,0,:]
@@ -64,7 +64,7 @@ for index in range(len(data_range)):
     df.iloc[index,9] = longwave_radiation[index, actual_lat, actual_lon]
     
 #Save file into .csv file
-df.to_csv('Edmonton_one_month.csv')
+#df.to_csv('Edmonton_one_month.csv')
 
 
 
