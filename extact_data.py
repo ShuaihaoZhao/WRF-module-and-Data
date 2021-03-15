@@ -43,7 +43,7 @@ precipitation_RAINNC=data.variables['RAINNC']#RAINNC is the rain calculation by 
 humidity=data.variables['Q2']#2-meter specific humidity
 sunshine_duration=data.variables['SWDOWN']
 shortwave_radiation=data.variables['ACSWUPB']#Upwelling Surface Shortwave Radiation
-longwave_radiation=data.variables['ACLWUPB']#Upwelling Surface Longwave Radiation
+longwave_radiation=data.variables['ACSWDNB']#Upwelling Surface Longwave Radiation
 
 df=pd.DataFrame(0,columns=['Temperature[Degree Celsius]','10m_X_Wind_Speed [m/s]','10m_Y_Wind_Speed [m/s]',
                            'Surface Pressure [Pa]','Precipitatio(cumulus scheme)[kg/m2s1]',

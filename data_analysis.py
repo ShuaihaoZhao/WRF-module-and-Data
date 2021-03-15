@@ -23,7 +23,7 @@ part_real=real_data[['Temp (Â°C)','Stn Press (kPa)','Wind Spd (km/h)','Precip.
 
 part_forecasted=forecasted_data[['Temperature[Degree Celsius]','Surface Pressure [Pa]',
                                  '10m_X_Wind_Speed [m/s]','10m_Y_Wind_Speed [m/s]']];
-part_new=new_data[['humidity']][0:741]                  
+part_new=new_data[['humidity','irradiance']][0:741]                  
                                  
 #######################################################################Temperature
 
@@ -103,6 +103,24 @@ for index_r,rows in forecasted_data.iterrows():
 #plt.show()       
     
     
+########################################################################solar irradiation
+part_forecasted['irradiance']=np.nan
+for index_i,rows in forecasted_data.iterrows():
+    if index_i>0:
+        part_forecasted.iloc[index_i,7]=forecasted_data.iloc[index_i,9]-forecasted_data.iloc[index_i-1,9]
+    else:
+        part_forecasted.iloc[index_i,7]=forecasted_data.iloc[index_i,9]
+       
+plt.figure(figsize=(20,10))
+plt.plot(forecasted_data.iloc[:,0][1:742],part_forecasted.iloc[:,7][1:742],label='forecasted')
+plt.plot(forecasted_data.iloc[:,0][1:742],part_new.iloc[:,1]*1000,label='real');
+
+plt.title('Real irradiance vs Forecasted  irradiance')
+plt.xlabel('Time')
+plt.ylabel(' irradiance[w m-2]')
+plt.legend(loc="upper left")
+plt.show()  
+        
 ########################################################################
 #counter=0
 #error=0#temperature
@@ -128,12 +146,14 @@ corr_pressure=(part_forecasted['Surface Pressure [Pa]']*1000).corr(part_real['St
 corr_wind=part_forecasted['Wind[km/h]'].corr(part_real['Wind Spd (km/h)'])
 corr_precipitation=part_forecasted['precipitation[mm]'].corr(part_real['Precip. Amount (mm)'])
 corr_humidity=part_forecasted['relative humidity'].corr(part_new['humidity'])
+corr_irradiance=part_forecasted['irradiance'].corr(part_new['irradiance'])
 
 print('Temperature Correlation is: ',corr_temperature)
 print('Pressure Correlation is: ',corr_pressure)
 print('Wind speed Correlation is: ',corr_wind)
 print('Precipitation Correlation is: ',corr_precipitation)
 print('Relative humidity Correlation is: ',corr_humidity)
+print('Irradiance Correlation is: ',corr_irradiance)
 
 #plt.figure(figsize=(12,12))
 #part_real_corr_matrix=part_real.corr()
