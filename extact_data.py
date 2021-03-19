@@ -43,13 +43,19 @@ precipitation_RAINNC=data.variables['RAINNC']#RAINNC is the rain calculation by 
 humidity=data.variables['Q2']#2-meter specific humidity
 sunshine_duration=data.variables['SWDOWN']
 shortwave_radiation=data.variables['ACSWUPB']#Upwelling Surface Shortwave Radiation
-longwave_radiation=data.variables['ACSWDNB']#Upwelling Surface Longwave Radiation
+longwave_radiation=data.variables['ACLWUPB']#Upwelling Surface Longwave Radiation
+
+shortwave_radiation_d=data.variables['ACSWDNB']#downward Surface Shortwave Radiation
+longwave_radiation_d=data.variables['ACLWDNB']#downward Surface Longwave Radiation
+
+latent_heat_flux=data.variables['ACLHF']
+sensible_heat_flux=data.variables['ACHFX']
 
 df=pd.DataFrame(0,columns=['Temperature[Degree Celsius]','10m_X_Wind_Speed [m/s]','10m_Y_Wind_Speed [m/s]',
                            'Surface Pressure [Pa]','Precipitatio(cumulus scheme)[kg/m2s1]',
                            'Precipitatio(microphysics scheme)[kg/m2s1]','Humidity',
                            'Sunshine Duration(short wave radiation>120 Wm2)[s]','Upwelling Surface Shortwave Radiation[W/m2]',
-                           'Upwelling Surface Longwave Radiation[W/m2]'],index=data_range)#pandas data frame
+                           'Upwelling Surface Longwave Radiation[W/m2]','Downward SWR','Downward LWR','LHF','SHF'],index=data_range)#pandas data frame
 
 for index in range(len(data_range)):
     df.iloc[index,0] = temperature_data[index, actual_lat, actual_lon]-273.15
@@ -62,9 +68,13 @@ for index in range(len(data_range)):
     df.iloc[index,7] = sunshine_duration[index, actual_lat, actual_lon]
     df.iloc[index,8] = shortwave_radiation[index, actual_lat, actual_lon]
     df.iloc[index,9] = longwave_radiation[index, actual_lat, actual_lon]
+    df.iloc[index,10] = shortwave_radiation_d[index, actual_lat, actual_lon]
+    df.iloc[index,11] = longwave_radiation_d[index, actual_lat, actual_lon]
+    df.iloc[index,12] = latent_heat_flux[index, actual_lat, actual_lon]
+    df.iloc[index,13] = sensible_heat_flux[index, actual_lat, actual_lon]
     
 #Save file into .csv file
-#df.to_csv('Edmonton_one_month.csv')
+#df.to_csv('Edmonton_one_month_new.csv')
 
 
 
