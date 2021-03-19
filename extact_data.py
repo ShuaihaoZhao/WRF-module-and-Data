@@ -48,8 +48,8 @@ longwave_radiation=data.variables['ACLWUPB']#Upwelling Surface Longwave Radiatio
 shortwave_radiation_d=data.variables['ACSWDNB']#downward Surface Shortwave Radiation
 longwave_radiation_d=data.variables['ACLWDNB']#downward Surface Longwave Radiation
 
-latent_heat_flux=data.variables['ACLHF']
-sensible_heat_flux=data.variables['ACHFX']
+latent_heat_flux=data.variables['ACSWDNT']
+sensible_heat_flux=data.variables['ACSWUPT']
 
 df=pd.DataFrame(0,columns=['Temperature[Degree Celsius]','10m_X_Wind_Speed [m/s]','10m_Y_Wind_Speed [m/s]',
                            'Surface Pressure [Pa]','Precipitatio(cumulus scheme)[kg/m2s1]',

@@ -111,12 +111,12 @@ for index_r,rows in forecasted_data.iterrows():
 part_forecasted['irradiance']=np.nan
 for index_i,rows in forecasted_data.iterrows():
     if index_i>0:
-        part_forecasted.iloc[index_i,7]=forecasted_data.iloc[index_i,11]-forecasted_data.iloc[index_i-1,11]-(forecasted_data.iloc[index_i,9]-forecasted_data.iloc[index_i-1,9])
+        part_forecasted.iloc[index_i,7]=(forecasted_data.iloc[index_i,11]-forecasted_data.iloc[index_i-1,11])/3600
     else:
-        part_forecasted.iloc[index_i,7]=forecasted_data.iloc[index_i,11]-forecasted_data.iloc[index_i,9]
+        part_forecasted.iloc[index_i,7]=forecasted_data.iloc[index_i,11]/3600
        
 plt.figure(figsize=(20,10))
-plt.plot(forecasted_data.iloc[:,0][1:742],part_forecasted.iloc[:,7][1:742]/180,label='forecasted')
+plt.plot(forecasted_data.iloc[:,0],part_forecasted.iloc[:,7],label='forecasted')
 #plt.plot(forecasted_data.iloc[:,0][1:742],part_new.iloc[:,1],label='real');
 plt.title('Real irradiance vs Forecasted  irradiance')
 plt.xlabel('Time')
