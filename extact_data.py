@@ -70,7 +70,7 @@ for index in range(len(data_range)):
     df.iloc[index,9] = longwave_radiation[index, actual_lat, actual_lon]
     df.iloc[index,10] = shortwave_radiation_d[index, actual_lat, actual_lon]
     df.iloc[index,11] = longwave_radiation_d[index, actual_lat, actual_lon]
-    df.iloc[index,12] = latent_heat_flux[index, actual_lat, actual_lon]
+    df.iloc[index,12] = latent_heat_flux[index, actual_lat, actual_lon]/3600
     df.iloc[index,13] = sensible_heat_flux[index, actual_lat, actual_lon]
     
 #Save file into .csv file
