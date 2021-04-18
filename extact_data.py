@@ -49,7 +49,7 @@ shortwave_radiation_d=data.variables['ACSWDNB']#downward Surface Shortwave Radia
 longwave_radiation_d=data.variables['ACLWDNB']#downward Surface Longwave Radiation
 
 latent_heat_flux=data.variables['ACSWDNT']
-sensible_heat_flux=data.variables['ACSWUPT']
+sensible_heat_flux=data.variables['SWNORM']
 
 df=pd.DataFrame(0,columns=['Temperature[Degree Celsius]','10m_X_Wind_Speed [m/s]','10m_Y_Wind_Speed [m/s]',
                            'Surface Pressure [Pa]','Precipitatio(cumulus scheme)[kg/m2s1]',
